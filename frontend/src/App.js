@@ -1,16 +1,25 @@
 import React from "react";
-import header from "./components/header";
-import footer from "./components/footer";
+import { Container } from "react-bootstrap";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Header from "./components/header";
+import Footer from "./components/footer";
+import HomeScreen from "./screens/HomeScreen";
+import ProductScreen from "./screens/ProductScreen";
 
 function App() {
   return (
-    <>
-      <header />
-      <main>
-        <h1>Welcome to FlatUz</h1>
+    <Router>
+      <Header />
+      <main className="py-3">
+        <Container>
+          <Routes>
+            <Route path="/" element={<HomeScreen />} />
+            <Route path="/product/:id" element={<ProductScreen />} />
+          </Routes>
+        </Container>
       </main>
-      <footer />
-    </>
+      <Footer />
+    </Router>
   );
 }
 
