@@ -1,4 +1,4 @@
-import Rating from "./components/rating";
+// import Rating from "./components/rating";
 
 const products = [
   {
@@ -63,4 +63,4 @@ const products = [
   },
 ];
 
-export default products;
+module.exports = products;

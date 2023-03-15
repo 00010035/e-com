@@ -4,7 +4,7 @@
   "description": "FlatUz e-com",
   "main": "server.js",
   "scripts": {
-    "test": "node backend/server.js"
+    "start": "node backend/server.js"
   },
   "repository": {
     "type": "git",
