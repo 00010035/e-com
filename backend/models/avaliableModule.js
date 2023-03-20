@@ -1,6 +1,6 @@
-import mongoose, { MongooseError } from "mongoose";
+import mongoose from "mongoose";
 
-const avalible = new mongoose.Schema(
+const avaliable = new mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
@@ -49,5 +49,5 @@ const avalible = new mongoose.Schema(
     timestamps: true,
   }
 );
-const Avalible = mongoose.model("avaliable", avalible);
-export default Avalible;
+const Avaliable = mongoose.model("avaliable", avaliable);
+export default Avaliable;
