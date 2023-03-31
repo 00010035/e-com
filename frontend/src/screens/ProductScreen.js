@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Row, Col, Image, ListGroup, Card, Button } from "react-bootstrap";
 import Rating from "../components/rating";
 import Message from "../components/message";
+import { useParams } from "react-router-dom";
 import Loader from "../components/loader";
 import { listProductDetails } from "../actions/productAction";
 
@@ -13,10 +14,11 @@ const ProductScreen = ({ match }) => {
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails || {};
 
+  const { id } = useParams();
   useEffect(() => {
     console.log(match);
-    dispatch(listProductDetails(match.params.id));
-  }, [dispatch, match.params.id]);
+    dispatch(listProductDetails(id));
+  }, [dispatch, id]);
 
   return (
     <>
