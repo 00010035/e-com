@@ -1,15 +1,18 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
-import { Nav, Navbar, Container } from "react-bootstrap";
+import { Nav, Navbar, Container, NavDropdown } from "react-bootstrap";
 import SearchAppBar from "./searchbtn.js";
-import { useSelector } from "react-redux";
-// import "../variables.scss";
+import { Logout } from "../actions/userAction.js";
 
 const Header = () => {
+  const dispatch = useDispatch();
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
-  console.log(userInfo);
+
+  const logoutHandler = () => {
+    dispatch(Logout());
+  };
 
   return (
     <header>
@@ -34,10 +37,14 @@ const Header = () => {
               <Nav.Link>For Student</Nav.Link>
             </LinkContainer>
             {userInfo?.name ? (
-              <>
-                <p>{userInfo.name}</p>
-                <button>Logout</button>
-              </>
+              <NavDropdown title={userInfo.name} id="username">
+                <LinkContainer to="/profile">
+                  <NavDropdown.Item>Profile</NavDropdown.Item>
+                </LinkContainer>
+                <NavDropdown.Item onClick={logoutHandler}>
+                  Logout
+                </NavDropdown.Item>
+              </NavDropdown>
             ) : (
               <LinkContainer to="/login">
                 <Nav.Link>
