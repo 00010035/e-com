@@ -47,7 +47,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
 // @access Public
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, phone, password } = req.body;
-  const userExists = await User.findOne({ email });
+  const userExists = await User.findOne({ $or: [{ email }, { phone }] });
 
   if (userExists) {
     res.status(400);
