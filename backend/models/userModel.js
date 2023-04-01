@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
 
 const userReg = new mongoose.Schema(
   {
@@ -30,5 +31,10 @@ const userReg = new mongoose.Schema(
     timestamps: true,
   }
 );
-const user = mongoose.model("user", userReg);
-export default user;
+
+userReg.methods.matchPassword = async function (enteredPassword) {
+  return await bcrypt.compare(enteredPassword, this.password);
+};
+
+const User = mongoose.model("user", userReg);
+export default User;
