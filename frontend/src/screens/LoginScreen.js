@@ -5,33 +5,31 @@ import { useDispatch, useSelector } from "react-redux";
 import Message from "../components/message.js";
 import Loader from "../components/loader.js";
 import FormContainer from "../components/formContainer.js";
-
+import { useNavigate } from "react-router-dom";
 import { Login } from "../actions/userAction.js";
 
 const LoginScreen = ({ location, history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [userInfo, setUserInfo] = useState(null);
+  // const [userInfo, setUserInfo] = useState(null);
 
+  let navigate = useNavigate();
   const dispatch = useDispatch();
 
   const redirect = location?.search ? location.search.split("=")[1] : "/";
 
   const userLogin = useSelector((state) => state.userLogin);
+  const { loading, error, userInfo } = userLogin;
 
   useEffect(() => {
-    if (userInfo) {
-      history.push(redirect);
+    if (userInfo?.name) {
+      navigate(redirect);
     }
-  }, [history, userInfo, redirect]);
-
-  const { loading, error } = userLogin;
+  }, [userInfo, redirect]);
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(Login(email, password)).then((res) => {
-      setUserInfo(res);
-    });
+    dispatch(Login(email, password));
   };
 
   return (

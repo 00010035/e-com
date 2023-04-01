@@ -18,11 +18,12 @@ const userInfoFromStorage = localStorage.getItem("userInfo")
   : null;
 
 const initialState = {
-  userLogin: { userInfo: userInfoFromStorage },
+  userLogin: { userInfo: { ...userInfoFromStorage } },
 };
 const middleware = [thunkMiddleware];
 
 const store = configureStore({
+  preloadedState: initialState,
   reducer: rootReducer,
   middleware,
   devTools: process.env.NODE_ENV !== "production",

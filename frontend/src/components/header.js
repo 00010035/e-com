@@ -3,9 +3,14 @@ import { Link } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
 import { Nav, Navbar, Container } from "react-bootstrap";
 import SearchAppBar from "./searchbtn.js";
+import { useSelector } from "react-redux";
 // import "../variables.scss";
 
-const header = () => {
+const Header = () => {
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+  console.log(userInfo);
+
   return (
     <header>
       <Navbar bg="light" variant="light" collapseOnSelect>
@@ -28,12 +33,19 @@ const header = () => {
             <LinkContainer to="/student">
               <Nav.Link>For Student</Nav.Link>
             </LinkContainer>
-            <LinkContainer to="/login">
-              <Nav.Link>
-                {" "}
-                <i className="fas fa-user"></i> Sign In
-              </Nav.Link>
-            </LinkContainer>
+            {userInfo?.name ? (
+              <>
+                <p>{userInfo.name}</p>
+                <button>Logout</button>
+              </>
+            ) : (
+              <LinkContainer to="/login">
+                <Nav.Link>
+                  {" "}
+                  <i className="fas fa-user"></i> Sign In
+                </Nav.Link>
+              </LinkContainer>
+            )}
           </Nav>
         </Container>
       </Navbar>
@@ -41,4 +53,4 @@ const header = () => {
   );
 };
 
-export default header;
+export default Header;
