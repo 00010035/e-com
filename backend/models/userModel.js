@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
+const phoneRegex = /^[0-9]+$/; // regular expression to match only numbers
 
 const userReg = new mongoose.Schema(
   {
@@ -22,9 +23,10 @@ const userReg = new mongoose.Schema(
       default: false,
     },
     phone: {
-      type: Number,
+      type: String,
       required: true,
       unique: true,
+      match: phoneRegex,
     },
   },
   {
