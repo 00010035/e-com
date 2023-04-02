@@ -15,7 +15,6 @@ const RegisterScreen = ({ location, history }) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState(null);
-  const [isFocused, setIsFocused] = useState(false);
 
   let navigate = useNavigate();
   const dispatch = useDispatch();
