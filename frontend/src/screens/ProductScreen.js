@@ -4,12 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { Row, Col, Image, ListGroup, Card, Button } from "react-bootstrap";
 import Rating from "../components/rating";
 import Message from "../components/message";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Loader from "../components/loader";
 import { listProductDetails } from "../actions/productAction";
 
 const ProductScreen = ({ match }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails || {};
@@ -19,6 +20,11 @@ const ProductScreen = ({ match }) => {
     console.log(match);
     dispatch(listProductDetails(id));
   }, [dispatch, id]);
+
+  const addToFavoriteHandler = () => {
+    navigate(`/favorite/${id}`);
+    // console.log("add to favorite");
+  };
 
   return (
     <>
@@ -65,14 +71,11 @@ const ProductScreen = ({ match }) => {
                   </Row>
                 </ListGroup.Item>
 
-                <ListGroup.Item className="text-center">
-                  <Button
-                    className="btn-block "
-                    type="button"
-                    disabled={product.countInStock === 0}
-                  >
-                    Contact information
+                <ListGroup.Item className="text-center d-flex">
+                  <Button className="primary" onClick={addToFavoriteHandler}>
+                    Add to Favorite
                   </Button>
+                  <Button>Contact information</Button>
                 </ListGroup.Item>
               </ListGroup>
             </Card>

@@ -20,7 +20,11 @@ const Header = () => {
         <Container>
           <LinkContainer to="/">
             <Navbar.Brand>
-              <img style={{ width: "13rem" }} src="/logo/logo_4.png "></img>
+              <img
+                style={{ width: "13rem" }}
+                src="/logo/logo_4.png "
+                alt="Logo (FlatUz)"
+              ></img>
             </Navbar.Brand>
           </LinkContainer>
           <Nav className="ml-auto">
@@ -30,17 +34,40 @@ const Header = () => {
             <LinkContainer to="/rent">
               <Nav.Link>
                 {" "}
-                <i className="fa-solid fa-house"></i> Rent
+                <i
+                  className="fa-solid fa-house"
+                  style={{ color: "#002c6a" }}
+                ></i>{" "}
+                Rent
               </Nav.Link>
             </LinkContainer>
-            <LinkContainer to="/student">
-              <Nav.Link>For Student</Nav.Link>
+            <LinkContainer to="/favorite">
+              <Nav.Link>
+                {" "}
+                <i
+                  className="fa-solid fa-heart"
+                  style={{ color: "#002c6a" }}
+                ></i>{" "}
+                Favorite
+              </Nav.Link>
             </LinkContainer>
             {userInfo?.name ? (
               <NavDropdown title={userInfo.name} id="username">
                 <LinkContainer to="/profile">
                   <NavDropdown.Item>Profile</NavDropdown.Item>
                 </LinkContainer>
+                <LinkContainer to="/productlist">
+                  <NavDropdown.Item>Products</NavDropdown.Item>
+                </LinkContainer>
+                {userInfo?.isAdmin && (
+                  <>
+                    <NavDropdown.Divider />
+                    <LinkContainer to="/admin/userlist">
+                      <NavDropdown.Item>Users</NavDropdown.Item>
+                    </LinkContainer>
+                  </>
+                )}
+                <NavDropdown.Divider />
                 <NavDropdown.Item onClick={logoutHandler}>
                   Logout
                 </NavDropdown.Item>
@@ -48,7 +75,6 @@ const Header = () => {
             ) : (
               <LinkContainer to="/login">
                 <Nav.Link>
-                  {" "}
                   <i className="fas fa-user"></i> Sign In
                 </Nav.Link>
               </LinkContainer>
